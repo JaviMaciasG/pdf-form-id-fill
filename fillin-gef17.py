@@ -1,19 +1,21 @@
 import argparse
-import pdfrw
+import PyPDF2
 
 def fill_pdf(input_pdf, output_pdf, field_values):
-    template = pdfrw.PdfReader(input_pdf)
-    annotations = template.Root.Pages.Kids[0].Annots  # Assuming fields are on the first page
+    with open(input_pdf, 'rb') as file:
+        reader = PyPDF2.PdfFileReader(file)
+        writer = PyPDF2.PdfFileWriter()
 
-    for annotation in annotations:
-        if annotation.Subtype == '/Widget' and annotation.T:
-            field_name = annotation.T[1:-1]  # Remove parentheses
-            if field_name in field_values:
-                annotation.update(
-                    pdfrw.PdfDict(V='{}'.format(field_values[field_name]))
-                )
+        # Copy the contents of the input file to the writer
+        writer.cloneReaderDocumentRoot(reader)
 
-    pdfrw.PdfWriter().write(output_pdf, template)
+        # Fill in the form fields
+        for field_name, value in field_values.items():
+            writer.updatePageFormFieldValues(reader.getPage(0), {field_name: value})
+
+        # Write the output PDF file
+        with open(output_pdf, 'wb') as output_file:
+            writer.write(output_file)
 
 def main():
     parser = argparse.ArgumentParser(description="Fill fields in a PDF form.")
