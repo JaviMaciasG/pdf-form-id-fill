@@ -21,6 +21,7 @@ def write_command_to_file(command, file_name):
 def write_to_ini(input_pdf, form_fields):
     ini_filename = os.path.splitext(input_pdf)[0] + ".ini"
     with open(ini_filename, 'w') as file:
+        file.write('[FormData]\n')
         for field in form_fields:
             file.write(f'{field}=YourValue\n')
 
