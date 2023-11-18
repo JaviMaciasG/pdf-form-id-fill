@@ -8,10 +8,10 @@ def get_form_fields(input_pdf):
         return form_fields
 
 def generate_command(input_pdf, form_fields):
-    command = f"python fill_script.py {input_pdf} --field_values "
+    command_start = f"python fill_script.py {input_pdf} --field_values "
     field_commands = [f'"{field}=YourValue"' for field in form_fields]
-    command += " ".join(field_commands)
-    return command
+    command_body = " \\\n".join(field_commands)
+    return command_start + command_body
 
 def main():
     parser = argparse.ArgumentParser(description="Identify form fields in a PDF.")
