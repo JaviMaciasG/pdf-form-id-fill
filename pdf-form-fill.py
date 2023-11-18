@@ -1,3 +1,7 @@
+# This script fills in form fields in a PDF
+# - It can be used with the output of pdf-form-identify-fields.py
+# - It can also be used with an INI file, generated also by pdf-form-identify-fields.py
+
 import argparse
 import PyPDF2
 import configparser
