@@ -43,19 +43,24 @@ def main():
 
     args = parser.parse_args()
 
+    print(f"[INF] Identifying form fields in {args.input_pdf}...")
     # Identify form fields
     form_fields = get_form_fields(args.input_pdf)
 
     # Generate command
     command = generate_command(args.input_pdf, form_fields)
 
+    # Write command to file or print it to the console
     if args.output_file:
+        print(f"[INF] Writing command to {args.output_file}...")
         write_command_to_file(command, args.output_file)
     else:
-        print(command)
+        print(f"[INF] Command to fill form fields:\n{command}")
 
     # Write fields to INI file
+    print(f"[INF] Writing field names to {os.path.splitext(args.input_pdf)[0]}.ini...")
     write_to_ini(args.input_pdf, form_fields)
+    print("[INF] Done.")
 
 if __name__ == "__main__":
     main()
