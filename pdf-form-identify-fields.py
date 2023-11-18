@@ -19,8 +19,9 @@ def get_form_fields(input_pdf):
         return form_fields
 
 def generate_command(input_pdf, form_fields):
-    command_start = f"python fill_script.py {input_pdf} --field_values "
-    field_commands = [f'"{field}=YourValue"' for field in form_fields]
+    command_start = f"python pdf-form-fill.py {input_pdf} --field_values "
+    # Generate field_command that will be a list of strings in the form '"field_name=__<field_name_without_spaces>__"'
+    field_commands = [f"\"{field}=__{unidecode(field.replace(' ', '')).upper()}__\"" for field in form_fields]
     command_body = " \\\n".join(field_commands)
     return command_start + command_body
 
@@ -33,7 +34,7 @@ def write_to_ini(input_pdf, form_fields):
     with open(ini_filename, 'w') as file:
         file.write('[FormData]\n')
         for field in form_fields:
-            file.write(f'{field}=YourValue\n')
+            file.write(f"{field}=__{unidecode(field.replace(' ', '')).upper()}__\n")
 
 def main():
     parser = argparse.ArgumentParser(description="Identify form fields in a PDF and generate a command to fill them.")
