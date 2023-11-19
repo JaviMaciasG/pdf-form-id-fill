@@ -1,4 +1,4 @@
-# Python scripts to fill in (easy) forms
+# Python scripts to identify fields in pdf forms and fill them easily (from command line/ini file)
 
 ## Overview
 
