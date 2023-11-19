@@ -36,42 +36,66 @@ def generate_command(input_pdf, form_fields):
     command_body = " \\\n".join(field_commands)
     return command_start + command_body
 
-def write_command_to_file(command, file_name):
-    with open(file_name, 'w') as file:
-        file.write(command + '\n')
 
-def write_to_ini(input_pdf, form_fields):
-    ini_filename = os.path.splitext(input_pdf)[0] + ".ini"
-    with open(ini_filename, 'w') as file:
-        file.write('[FormData]\n')
-        for field in form_fields:
-            file.write(f"{field}=__{unidecode(field.replace(' ', '')).upper()}__\n")
+def write_command_to_file(command, file_name):
+    try:
+        with open(file_name, 'w') as file:
+            file.write(command + '\n')
+        return True
+    except IOError as e:
+        print_err(f"Error writing to file {file_name}: {e}")
+        return False
+
+def write_to_ini(ini_filename, form_fields):
+    try:
+        with open(ini_filename, 'w') as file:
+            file.write('[FormData]\n')
+            for field in form_fields:
+                file.write(f"{field}=__{unidecode(field.replace(' ', '')).upper()}__\n")
+        return True
+    except IOError as e:
+        print_err(f"Error writing to file {ini_filename}: {e}")
+        return False
 
 def main():
     parser = argparse.ArgumentParser(description="Identify form fields in a PDF and generate a command to fill them.")
-    parser.add_argument("input_pdf", help="Input PDF file name")
-    parser.add_argument("-o", "--output_file", help="Output shell file to write the command (optional)", default=None)
+    parser.add_argument("input_pdfs", nargs='+', help="Input PDF file name(s)")
 
     args = parser.parse_args()
 
-    print(f"[INF] Identifying form fields in {args.input_pdf}...")
-    # Identify form fields
-    form_fields = get_form_fields(args.input_pdf)
+    print_inf(f"Running {os.path.basename(__file__)} with input PDFs: {args.input_pdfs}")
+    for input_pdf in args.input_pdfs:
+        # Identify form fields in each PDF
+        print_inf(f"Identifying form fields in {input_pdf}...")
+        # Identify form fields
+        form_fields = get_form_fields(input_pdf)
+        if form_fields is None:
+            print_err(f"Error getting form fields. Exiting.")
+            break
+        # Generate command
+        command = generate_command(input_pdf, form_fields)
+        # If an error occurred, break the loop
+        if form_fields is None:
+            print_war(f"Error generating shell file. Continuing...")
+            break
 
-    # Generate command
-    command = generate_command(args.input_pdf, form_fields)
+        # print_inf(f"Command to fill form fields:\n{command}")
 
-    # Write command to file or print it to the console
-    if args.output_file:
-        print(f"[INF] Writing command to {args.output_file}...")
-        write_command_to_file(command, args.output_file)
-    else:
-        print(f"[INF] Command to fill form fields:\n{command}")
+        # the output file will be named after the input file, with sh extension
+        output_file = os.path.splitext(input_pdf)[0] + ".sh"
+        print_inf(f"Writing command to {output_file}...")
+        if not write_command_to_file(command, output_file):
+            print_err(f"Error generating ini file. Continuing...")
+            break
 
-    # Write fields to INI file
-    print(f"[INF] Writing field names to {os.path.splitext(args.input_pdf)[0]}.ini...")
-    write_to_ini(args.input_pdf, form_fields)
-    print("[INF] Done.")
+        # Write fields to INI file
+        ini_file = os.path.splitext(input_pdf)[0] + ".ini"
+        print_inf(f"Writing field names to {ini_file}...")
+        if not write_to_ini(ini_file, form_fields):
+            print_err(f"Error writing field names to INI file. Continuing...")
+            break
+
+    print_inf("Done!")
 
 if __name__ == "__main__":
     main()
