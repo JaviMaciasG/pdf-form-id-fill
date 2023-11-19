@@ -1,22 +1,33 @@
-# This script identifies form fields in a PDF and generates a command to fill them.
-# Options
-# -o, --output_file: Write the command to a shell file instead of printing it to the console
-#   - This is useful if you want to edit the command before running it
-#   - If you don't provide this option, the command will be printed to the console
-#   - If you provide this option, the command will be written to the file you specify
-#   - Example: python pdf-form-identify-fields.py my-form.pdf -o fill-my-form.sh
+# This script identifies form fields in PDF files and generates:
+# - a shell script to fill them (This way you can edit the script to do the required modifications or use it as a
+#   template to generate a script that will fill the form fields.
+# - an INI file with the field names. This is useful to generate a template for the field values.
 
 import argparse
 import PyPDF2
 import os
 from unidecode import unidecode # This is used to remove accents from field names
+from my_print_utils import print_err, print_inf, print_war
 
-
-def get_form_fields(input_pdf):
+def get_form_fields2(input_pdf):
     with open(input_pdf, 'rb') as file:
         reader = PyPDF2.PdfFileReader(file)
         form_fields = reader.getFormTextFields()
         return form_fields
+
+def get_form_fields(input_pdf):
+    try:
+        with open(input_pdf, 'rb') as file:
+            reader = PyPDF2.PdfFileReader(file)
+            form_fields = reader.getFormTextFields()
+            return form_fields
+    except FileNotFoundError:
+        print_err(f"Error: The file '{input_pdf}' was not found.")
+    except PyPDF2.errors.PdfReadError as e:
+        print_err(f"Error reading the PDF file: {e}")
+    except Exception as e:
+        print_err(f"An unexpected error occurred: {e}")
+    return None
 
 def generate_command(input_pdf, form_fields):
     command_start = f"python pdf-form-fill.py {input_pdf} --field_values "
