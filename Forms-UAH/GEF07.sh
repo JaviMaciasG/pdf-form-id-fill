@@ -1,0 +1,17 @@
+python pdf-form-fill.py GEF07.pdf --field_values "Facultad=__FACULTAD__" \
+"PERSONA QUE SE HARÁ CARGO DE LA DOCENCIA O BIEN FECHAS DE RECUPERACIÓN=__PERSONAQUESEHARACARGODELADOCENCIAOBIENFECHASDERECUPERACION__" \
+"día=__DIA__" \
+"día2=__DIA2__" \
+"mes=__MES__" \
+"mes2=__MES2__" \
+"Nombre y Apellidos=__NOMBREYAPELLIDOS__" \
+"NIF=__NIF__" \
+"Teléfono=__TELEFONO__" \
+"Cuerpo o Escala=__CUERPOOESCALA__" \
+"Departamento=__DEPARTAMENTO__" \
+"MOTIVO DE LA AUSENCIA=__MOTIVODELAAUSENCIA__" \
+"Fecha=__FECHA__" \
+"Fdo profesor=__FDOPROFESOR__" \
+"Fdo interesado=__FDOINTERESADO__" \
+"Fdo Departamento=__FDODEPARTAMENTO__" \
+"Deapartamento=__DEAPARTAMENTO__"
