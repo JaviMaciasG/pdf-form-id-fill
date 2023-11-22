@@ -30,7 +30,7 @@ def get_form_fields(input_pdf):
     return None
 
 def generate_command(input_pdf, form_fields):
-    command_start = f"python pdf-form-fill.py {input_pdf} --field_values "
+    command_start = f"python pdf-form-fill.py {input_pdf} --field-values "
     # Generate field_command that will be a list of strings in the form '"field_name=__<field_name_without_spaces>__"'
     field_commands = [f"\"{field}=__{unidecode(field.replace(' ', '')).upper()}__\"" for field in form_fields]
     command_body = " \\\n".join(field_commands)
