@@ -137,7 +137,7 @@ Provide high level tools to ease filling in known forms.
 
 # Contributions/Help
 
-If you need help to make this work, or you get any errors when running the tool, or even suggestions for improvements, or, better, want to contribute, please contact me at [my email address](mailto:javier.maciasguarasa@uah.es).
+If you need help to make this work, or you get any errors when running the tool, or even suggestions for improvements, or, better, want to contribute, please submit an issue.
 
 Enjoy!
 
