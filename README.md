@@ -90,6 +90,33 @@ python ../pdf-form-identify-fields.py GEF07.pdf
 python ../pdf-form-identify-fields.py GEF17.pdf
 ```
 
+To use them, you just have to (for example for the `GEF07.pdf`):
+
+- If you want to use the INI file:
+
+  - Copy and edit the ini file with your data. If there is a field you don't want to fill in, just comment the line by inserting a `;` at the beginning of the corresponding line:
+  
+  ```bash
+cp GEF07.ini GEF07-personal.ini
+<edit command> GEF07-personal.ini
+```
+
+  - Run the pdf generation command to generate the customized file (named `20231123-GEF07-personal.pdf`):
+  
+```bash
+python pdf-form-fill.py GEF07.pdf -i GEF07-personal.ini -o 20231123-GEF07-personal.pdf
+```
+  
+- If you want to use the shell file, just edit it and run the pdf generation command:
+
+```bash
+cp GEF07.sh GEF-personal.sh
+<edit command> GEF-personal.sh
+bash GEF-personal.sh 
+```
+
+  In this case, the output file will be automatically named `GEF07-filled.pdf`.
+
 
 ## Note
 
@@ -102,9 +129,15 @@ Provide samples for batch processing using simple substitution of the value plac
 
 Provide high level tools to ease filling in known forms.
 
-If you 
 
-Enjoy!!
+# Contributions/Help
+
+If you need help to make this work, or you get any errors when running the tool, or even suggestions for improvements, or, better, want to contribute, please contact me at [my email address](mailto:javier.maciasguarasa@uah.es).
+
+Enjoy!
 
 
 Javi
+
+
+
