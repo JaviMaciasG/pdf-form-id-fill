@@ -1,12 +1,12 @@
-# Python scripts to identify fields in pdf forms and fill them easily (from command line/ini file)
+# Python scripts to fill in pdf forms from command line (plus identifying fields in pdf forms)
 
 ## Overview
 
-This directory contains Python scripts for working with PDF forms. The scripts allow you to identify form fields in a PDF, generate a command to fill them, and fill in the form fields with specified values.
+This directory contains two python scripts related to filling in pdf forms. The main tool aims to easily fill in a pdf form from  either the command line or by providing a INI file.
 
-The easy part if filling in the form, but the tricky part (well, not that tricky) is to find out the names of the fields in the pdf file. This is the reason why we have here these two utilities.
+The easy part is filling in the form, and the tricky part (well, not that tricky) is to find out the names of the fields in the pdf file. This is the reason why we have here these two utilities.
 
-## Files
+## Tools
 
 - `pdf-form-identify-fields.py`: This script identifies form fields in a PDF and generates:
 
@@ -33,13 +33,13 @@ To identify form fields in a PDF, use the `pdf-form-identify-fields.py` script. 
 python pdf-form-identify-fields.py my-form.pdf
 ```
 
-This will generate a shell file that allows modification using a command in the shell, and also an ini_file that can be further edited. To keep things simple, these files are named after the name of the pdf file, changing its extension to `.sh` and `.ini`, respectively. In the example these files would be `my_form.sh` and `my_form.ini`.
+This will generate a shell file that allows modification using a command in the shell, and also an INI file that can be further edited. To keep things simple, these files are named after the name of the pdf file, changing its extension to `.sh` and `.ini`, respectively. In the example these files would be `my_form.sh` and `my_form.ini`.
 
 
 
 ### Fill Form Fields
 
-To fill form fields in a PDF, use the `pdf-form-fill.py` script. You can specify the field values as command-line arguments in 'field_name=value' format, or you can provide an INI file with the 'field_name=value' pairs. If you don't specify an output PDF file name, the script will create a new PDF file with `-filled`` appended to the input PDF file name. You can also provide both an INI file and field definitions in the command line (command line field definitions override those found in the INI file, if the are found in both sources).
+To fill form fields in a PDF, use the `pdf-form-fill.py` script. You can specify the field values as command-line arguments in `field_name=value` format, or you can provide an INI file with the 'field_name=value' pairs. If you don't specify an output PDF file name, the script will create a new PDF file with `-filled`` appended to the input PDF file name. You can also provide both an INI file and field definitions in the command line (command line field definitions override those found in the INI file, if the are found in both sources).
 
 For example, to fill form fields using command-line arguments:
 
@@ -94,7 +94,7 @@ To use them, you just have to (for example for the `GEF07.pdf`):
 
 - If you want to use the INI file:
 
-  - Copy and edit the ini file with your data. If there is a field you don't want to fill in, just comment the line by inserting a `;` at the beginning of the corresponding line:
+  - Copy and edit the INI file with your data. If there is a field you don't want to fill in, just comment the line by inserting a `;` at the beginning of the corresponding line:
   
   ```bash
 cp GEF07.ini GEF07-personal.ini
