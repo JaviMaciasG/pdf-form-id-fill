@@ -87,6 +87,12 @@ def main():
         if not write_command_to_file(command, output_file):
             print_err(f"Error generating ini file. Continuing...")
             break
+        else:
+            print_inf("Now you can copy and edit the {output_file} with your data, and then run the fill in script:")
+            print_inf(f" $ cp {output_file} my-{output_file}", cont=True)
+            print_inf(f" $ <edit command> my-{output_file} ", cont=True)
+            print_inf(f" $ bash my-{output_file}", cont=True)
+            print_inf(f"And your pdf file will be {input_pdf.replace('.pdf', '-filled.pdf')}", cont=True)
 
         # Write fields to INI file
         ini_file = os.path.splitext(input_pdf)[0] + ".ini"
@@ -94,7 +100,12 @@ def main():
         if not write_to_ini(ini_file, form_fields):
             print_err(f"Error writing field names to INI file. Continuing...")
             break
-
+        else:
+            print_inf("Now you can copy and edit the {ini_file} with your data, and then run the fill in script:")
+            print_inf(f" $ cp {ini_file} my-{ini_file}", cont=True)
+            print_inf(f" $ <edit command> my-{ini_file} ", cont=True)
+            print_inf(f" $ python pdf-form-fill.py {input_pdf} -i my-{ini_file} -o my-{input_pdf}",
+                      cont=True)
     print_inf("Done!")
 
 if __name__ == "__main__":
