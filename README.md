@@ -6,7 +6,7 @@ This directory contains two python scripts related to filling in pdf forms.
 
 The main tool aims to easily fill in a pdf form from  either the command line or by providing an INI-style file.
 
-The easy part is filling in the form, and the tricky part (well, not that tricky) is to find out the names of the fields in the pdf file. This is the reason why we have another tool to ease the process of identifyiing the available files.
+The easy part is filling in the form, and the tricky part (well, not that tricky) is to find out the names of the fields in the pdf file. This is the reason why we provide another tool to ease the process of identifyiing the available files.
 
 
 ## Dependencies/prerequisites
@@ -51,6 +51,7 @@ python pdf-form-identify-fields.py my-form.pdf
 
 This will generate a shell file that allows modification using a command in the shell, and also an INI file that can be further edited. To keep things simple, these files are named after the name of the pdf file, changing its extension to `.sh` and `.ini`, respectively. In the example these files would be `my_form.sh` and `my_form.ini`.
 
+We do not allow extra arguments to provide a name for the output files, because this script can be run with multiple pdf files, that makes sense if you have a bunch of pdf files to process in your organization, and you wan to generate the sh and INI templates.
 
 
 ### Fill Form Fields
