@@ -1,4 +1,4 @@
-python pdf-form-fill.py GEF17.pdf --field_values "NIF o PASAPORTE=__NIFOPASAPORTE__" \
+python ../pdf-form-fill.py GEF17.pdf --field-values "NIF o PASAPORTE=__NIFOPASAPORTE__" \
 "Email=__EMAIL__" \
 "Calle=__CALLE__" \
 "n=__N__" \

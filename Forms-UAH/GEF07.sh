@@ -1,4 +1,4 @@
-python pdf-form-fill.py GEF07.pdf --field_values "Facultad=__FACULTAD__" \
+python ../pdf-form-fill.py GEF07.pdf --field-values "Facultad=__FACULTAD__" \
 "PERSONA QUE SE HARÁ CARGO DE LA DOCENCIA O BIEN FECHAS DE RECUPERACIÓN=__PERSONAQUESEHARACARGODELADOCENCIAOBIENFECHASDERECUPERACION__" \
 "día=__DIA__" \
 "día2=__DIA2__" \

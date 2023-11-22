@@ -1,4 +1,4 @@
-python pdf-form-fill.py GEF06.pdf --field_values "NIF=__NIF__" \
+python ../pdf-form-fill.py GEF06.pdf --field-values "NIF=__NIF__" \
 "CuerpoEscalaCategoríaContrato=__CUERPOESCALACATEGORIACONTRATO__" \
 "Destino actualDptoFacultadServicioUnidad=__DESTINOACTUALDPTOFACULTADSERVICIOUNIDAD__" \
 "Teléfono=__TELEFONO__" \
